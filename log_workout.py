@@ -24,27 +24,28 @@ def get_valid_int(prompt):
             print("Invalid input. Try again.")
     
 
-db = sqlite3.connect("workout_log.db")
-cursor = db.cursor()
+if __name__ == "__main__":
+    db = sqlite3.connect("workout_log.db")
+    cursor = db.cursor()
 
-while True:
-    user_date = input("Enter date (YYYY-MM-DD): ")
-    try:
-        workout_id = insert_workout(db, user_date)
-        break
-    except ValueError as e:
-        print(e)
-    
-    
-
-cont_add = "y"
-while cont_add == "y":
-    exercise_name = input("Please enter the name of the exercise: ")
-    weight = get_valid_int("Enter weight: ")
-    reps = get_valid_int("Enter # of reps: ")
-    sets = get_valid_int("Enter # of sets: ")
+    while True:
+        user_date = input("Enter date (YYYY-MM-DD): ")
+        try:
+            workout_id = insert_workout(db, user_date)
+            break
+        except ValueError as e:
+            print(e)
         
-    insert_exercise(db, workout_id, exercise_name, weight, reps, sets)
-    cont_add = input("Add an exercise(y/n): ")
+        
 
-db.commit()
+    cont_add = "y"
+    while cont_add == "y":
+        exercise_name = input("Please enter the name of the exercise: ")
+        weight = get_valid_int("Enter weight: ")
+        reps = get_valid_int("Enter # of reps: ")
+        sets = get_valid_int("Enter # of sets: ")
+            
+        insert_exercise(db, workout_id, exercise_name, weight, reps, sets)
+        cont_add = input("Add an exercise(y/n): ")
+
+    db.commit()
